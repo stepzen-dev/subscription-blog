@@ -1,39 +1,27 @@
-type Query {
-  """
-  rand returns a random number between 0 and 2
-  """
-  rand: Int!
-    @rest(
-      endpoint: "stepzen:empty"
-      transforms: { editor: """jsonata:$round($random()*2)""" }
-    )
+type Binance {
+  closeTime: ID
+  count: Int
+  firstId: Int
+  highPrice: Float
+  lastId: Int
+  lastPrice: Float
+  lowPrice: Float
+  openPrice: Float
+  openTime: ID
+  priceChange: Float
+  priceChangePercent: Float
+  quoteVolume: Float
+  symbol: String
+  volume: Float
+  weightedAvgPrice: Float
 }
 
-""" ChangeData and changes were added in the 2022-12-06 update """
-type ChangeData {
-  time: DateTime!
-  rand: Int!
-}
-
 type Query {
-  """
-  changes returns different ChangeData every time.
-  """
-  changes: ChangeData
-    @rest(
-      endpoint: "stepzen:empty"
-      transforms: { editor: """jsonata:{ "time" : $now(), "rand" : $round($random()*2)}""" }
-    )
+  """ https://api2.binance.com/api/v3/ticker may work better in your location """
+  binance(symbol: String windowSize:String!="1m"): Binance
+    @rest(endpoint: "https://api.binance.us/api/v3/ticker")
 }
-"""
-Subscriptions return queries or extractions at a regular interval (current default 10s).
-"""
 type Subscription {
-  rand: Int! @materializer(query: "rand")
-
-  # added in the 2022-12-06 update
-  # `subscription { changes { rand  } }` and `subscription { randFromChanges }`
-  # are equivalent and will both ignore repeated values of rand
-  changes: ChangeData @materializer(query: "changes")
-  randFromChanges: Int! @materializer(query: "changes { rand }")
+  binance(symbol: String): Binance
+    @materializer(query:"binance")
 }

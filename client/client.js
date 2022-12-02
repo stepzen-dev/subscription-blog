@@ -7,10 +7,7 @@ const ACCOUNT = process.env.STEPZEN_ACCOUNT
 const QUERY = process.env.GRAPHQL_QUERY
 
 let url = 'ws://localhost:9000/stepzen-subscriptions/api/subscription/__graphql'
-let query = 'subscription { rand }'
-// query = 'subscription { changes { rand }}'
-// query = 'subscription { randFromChanges }'
-// query = 'subscription { changes { rand time }}'
+let query = 'subscription {binance(symbol: "ETHBTC"){symbol lastPrice}}'
 if (QUERY) {
   query = QUERY
 }
