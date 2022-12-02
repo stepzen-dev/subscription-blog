@@ -29,7 +29,7 @@ You can run this sample either locally or using the managed StepZen stepzen.net 
 1. Download this repo and `cd subscription-blog/graphql`. 
 2. Make sure you've registered for an account and setup your cli.  [Getting Started](https://stepzen.com/getting-started) has instructions on how to do this.
 3. `cd graphql && stepzen deploy` deploys the `graphql` schema in `index.graphql` to StepZen (on your local machine) and the endpoint is `http://localhost:9000/api/subscription/__graphql`
-5. Now we will have a client that makes subscription requests on `web sockets` to this endpoint. For this, `cd ../client && npm install graphql-ws && npm install ws && npm install dotenv`.
+5. Now we will have a client that makes subscription requests on `web sockets` to this endpoint. For this, `cd ../client && npm install`.
 6. Setup .env; replace `<YOUR_ACCOUNT>` with your account name in the following and run `(echo 'APIKEY='$(stepzen whoami --apikey)  ; echo STEPZEN_ACCOUNT=<YOUR_ACCOUNT>) > .env` 
 7. `node client.js` and see the magic.  You will see the time the subscription ran and a random number reflected on your console.
 
