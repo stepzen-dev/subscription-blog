@@ -18,9 +18,9 @@ That's it! `foo` can be a `@rest` query, it could be `@dbquery`, it could be a f
 4. `stepzen deploy` deploys the `graphql` schema in `index.graphql` to StepZen (on your local machine) and the endpoint is `http://localhost:9000/api/subscription/__graphql`
 5. Now we will have a client that makes subscription requests on `web sockets` to this endpoint. For this, `cd ../client && npm install graphql-ws && npm install ws && npm install dotenv`.
 6. Setup .env; `echo 'APIKEY='$(stepzen whoami --apikey) > .env`  (`stepzen whoami --apikey` retrieves your admin key, it shoud look something like: `graphql::local.net...`)
-7. `node local.js` and see the magic. You will see the price of `ETHBTC` change and reflected back on your console.
+7. `node local.js` and see the magic.  You will see the time the subscription ran and a random number reflected on your console.
 
 ## How this all works
-The subscription is against a REST backend: `https://api2.binance.com/api/v3/ticker?symbol=ETHBTC` and StepZen does a long polling and pushes back to the client whenever a new value is found. 
+The subscription is materialized against an internal endpoint `stepzen:empty` with content provided via a JSONata transform.  StepZen does long polling and pushes back to the client whenever a new value is found. 
 
 Because any `type Query` can be converted to `type Subscription`, you can set up subscription against databases, graphql endpoints, or any combination thereof. Try them for yourself.

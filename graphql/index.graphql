@@ -1,26 +1,22 @@
-type Binance {
-  closeTime: ID
-  count: Int
-  firstId: Int
-  highPrice: Float
-  lastId: Int
-  lastPrice: Float
-  lowPrice: Float
-  openPrice: Float
-  openTime: ID
-  priceChange: Float
-  priceChangePercent: Float
-  quoteVolume: Float
-  symbol: String
-  volume: Float
-  weightedAvgPrice: Float
+"""
+Query that should return a different result every time it is called
+"""
+
+type ChangeData {
+     time: DateTime!
+     rand: Float
 }
 
 type Query {
-  binance(symbol: String windowSize:String!="1m"): Binance
-    @rest(endpoint: "https://api2.binance.com/api/v3/ticker")
+     changes: ChangeData @rest(endpoint: "stepzen:empty"
+       transforms: {editor:"""jsonata:{ "time" : $now(), "rand" : $random()}"""})
 }
+
+"""
+Subscription on changes that will be polled periodically
+"""
+
 type Subscription {
-  binance(symbol: String): Binance
-    @materializer(query:"binance")
+  changes: ChangeData
+     @materializer(query: "changes")
 }
