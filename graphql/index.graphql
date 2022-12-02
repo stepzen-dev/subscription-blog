@@ -11,7 +11,6 @@ type Query {
      changes: ChangeData @rest(endpoint: "stepzen:empty"
        transforms: {editor:"""jsonata:{ "time" : $now(), "rand" : $random()}"""})
 }
-
 """
 Subscription on changes that will be polled periodically
 """
@@ -19,4 +18,7 @@ Subscription on changes that will be polled periodically
 type Subscription {
   changes: ChangeData
      @materializer(query: "changes")
+  # use selection
+  rand: Float!
+     @materializer(query: "changes { rand }")
 }

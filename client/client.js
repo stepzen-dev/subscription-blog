@@ -14,7 +14,7 @@ if (QUERY) {
 console.log(`running: ${query} ${QUERY}`)
 
 if (!APIKEY) {
-  console.log('You must add your APIKEY to the .env file')
+  console.log('You must add the APIKEY to the .env file')
 }
 
 if (ACCOUNT && ACCOUNT != 'graphql') {
