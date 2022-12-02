@@ -21,7 +21,7 @@ You can run this sample either locally or using the managed StepZen stepzen.net 
 3. `cd graphql && stepzen service start && stepzen login --config ~/.stepzen/stepzen-config.local.yaml`--this starts a local docker container running all of StepZen's services.
 4. `stepzen deploy` deploys the `graphql` schema in `index.graphql` to StepZen (on your local machine) and the endpoint is `http://localhost:9000/api/subscription/__graphql`
 5. Now we will have a client that makes subscription requests on `web sockets` to this endpoint. For this, `cd ../client && npm install`.
-6. Setup .env; `echo 'APIKEY='$(stepzen whoami --apikey) > .env`  (`stepzen whoami --apikey` retrieves your admin key, it should look something like: `graphql::local.net...`)
+6. Do a `stepzen whoami --apikey` and get your admin key, it should look something like: `graphql::local.net...`. Edit `.env` and set the value of `APIKEY=` to be this key.
 7. `node client.js` and see the magic.  You will see the time the subscription ran and a random number reflected on your console.
 
 ## StepZen stepzen.net service
@@ -30,7 +30,9 @@ You can run this sample either locally or using the managed StepZen stepzen.net 
 2. Make sure you've registered for an account and setup your cli.  [Getting Started](https://stepzen.com/getting-started) has instructions on how to do this.
 3. `cd graphql && stepzen deploy` deploys the `graphql` schema in `index.graphql` to StepZen (on your local machine) and the endpoint is `http://localhost:9000/api/subscription/__graphql`
 5. Now we will have a client that makes subscription requests on `web sockets` to this endpoint. For this, `cd ../client && npm install`.
-6. Setup .env; replace `<YOUR_ACCOUNT>` with your account name in the following and run `(echo 'APIKEY='$(stepzen whoami --apikey)  ; echo STEPZEN_ACCOUNT=<YOUR_ACCOUNT>) > .env` 
+6. Do a `stepzen whoami --apikey` to get your admin key. Edit `.env` and set:
+   - the value of `APIKEY=` to be this key
+   - the value of `STEPZEN_ACCOUNT=` to be your stepzen account name
 7. `node client.js` and see the magic.  You will see the time the subscription ran and a random number reflected on your console.
 
 
