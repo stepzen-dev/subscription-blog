@@ -33,4 +33,4 @@ That's it! `foo` can be a `@rest` query, it could be `@dbquery`, it could be a f
 ## How this all works
 The subscription is against a REST backend: `https://api.binance.us/api/v3/ticker?symbol=ETHBTC` and StepZen does a long polling and pushes back to the client whenever a new value is found. 
 
-Because any `type Query` can be converted to `type Subscription`, you can set up subscription against databases, graphql endpoints, or any combination thereof. Try them for yourself.
+Because any `Query` field can be exposed as a `Subscription`, you can set up subscription against databases, graphql endpoints, or any combination thereof. Try them for yourself.
