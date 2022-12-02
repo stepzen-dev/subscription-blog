@@ -1,24 +1,39 @@
-"""
-Query that should return a different result every time it is called
-"""
+type Query {
+  """
+  rand returns a random number between 0 and 2
+  """
+  rand: Int!
+    @rest(
+      endpoint: "stepzen:empty"
+      transforms: { editor: """jsonata:$round($random()*2)""" }
+    )
+}
 
+""" ChangeData and changes were added in the 2022-12-06 update """
 type ChangeData {
-     time: DateTime!
-     rand: Float
+  time: DateTime!
+  rand: Int!
 }
 
 type Query {
-     changes: ChangeData @rest(endpoint: "stepzen:empty"
-       transforms: {editor:"""jsonata:{ "time" : $now(), "rand" : $random()}"""})
+  """
+  changes returns different ChangeData every time.
+  """
+  changes: ChangeData
+    @rest(
+      endpoint: "stepzen:empty"
+      transforms: { editor: """jsonata:{ "time" : $now(), "rand" : $round($random()*2)}""" }
+    )
 }
 """
-Subscription on changes that will be polled periodically
+Subscriptions return queries or extractions at a regular interval (current default 10s).
 """
-
 type Subscription {
-  changes: ChangeData
-     @materializer(query: "changes")
-  # use selection
-  rand: Float!
-     @materializer(query: "changes { rand }")
+  rand: Int! @materializer(query: "rand")
+
+  # added in the 2022-12-06 update
+  # `subscription { changes { rand  } }` and `subscription { randFromChanges }`
+  # are equivalent and will both ignore repeated values of rand
+  changes: ChangeData @materializer(query: "changes")
+  randFromChanges: Int! @materializer(query: "changes { rand }")
 }

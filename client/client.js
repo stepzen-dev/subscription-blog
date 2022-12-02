@@ -7,14 +7,18 @@ const ACCOUNT = process.env.STEPZEN_ACCOUNT
 const QUERY = process.env.GRAPHQL_QUERY
 
 let url = 'ws://localhost:9000/stepzen-subscriptions/api/subscription/__graphql'
-let query = 'subscription { changes { time rand }} '
+let query = 'subscription { rand }'
+// query = 'subscription { changes { rand }}'
+// query = 'subscription { randFromChanges }'
+// query = 'subscription { changes { rand time }}'
 if (QUERY) {
   query = QUERY
 }
-console.log(`running: ${query} ${QUERY}`)
+console.log(`running: ${query}`)
 
 if (!APIKEY) {
-  console.log('You must add the APIKEY to the .env file')
+  console.log('You must add your APIKEY to the .env file')
+  process.exit(1)
 }
 
 if (ACCOUNT && ACCOUNT != 'graphql') {
@@ -45,11 +49,7 @@ const client = createClient({
         query: query,
       },
       {
-        next: data =>
-          console.log(
-            new Date(),
-            data?.data?.changes || data?.data?.rand || data?.data,
-          ),
+        next: data => console.log(new Date(), data?.data),
         error: e => {
           console.log('ERROR', e)
           reject()
