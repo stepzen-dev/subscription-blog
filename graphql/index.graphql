@@ -17,8 +17,9 @@ type Binance {
 }
 
 type Query {
+  """ https://api2.binance.com/api/v3/ticker may work better in your location """
   binance(symbol: String windowSize:String!="1m"): Binance
-    @rest(endpoint: "https://api2.binance.com/api/v3/ticker")
+    @rest(endpoint: "https://api.binance.us/api/v3/ticker")
 }
 type Subscription {
   binance(symbol: String): Binance
