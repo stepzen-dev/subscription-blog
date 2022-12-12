@@ -24,7 +24,6 @@ That's it! `foo` can be a `@rest` query, it could be `@dbquery`, it could be a f
 1. Download this repo and `cd subscription-blog/graphql`. 
 2. Make sure you've registered for an account and setup your cli.  [Getting Started](https://stepzen.com/getting-started) has instructions on how to do this.
 3. `cd graphql && stepzen deploy` deploys the `graphql` schema in `index.graphql` to StepZen (on your local machine) and the websockets endpoint is `wss://ACCOUNT.stepzen.net/stepzen-subscriptions/api/subscription/__graphql`.  Note: the client code below will use the correct wss endpoint if you set STEPZEN_ACCOUNT per step 6.
-http://localhost:9000/api/subscription/__graphql`
 5. Now we will have a client that makes subscription requests over WebSockets using graphql-ws to this endpoint. For this, `cd ../client && npm install`.
 6. Do a `stepzen whoami --apikey` to get your admin key. Edit `.env` and set:
    - the value of `APIKEY=` to be this key
