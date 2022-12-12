@@ -15,7 +15,7 @@ That's it! `foo` can be a `@rest` query, it could be `@dbquery`, it could be a f
 1. Download this repo and `cd subscription-blog/graphql`. 
 2. If you do not have `stepzen` installed, then `npm install -g stepzen`.
 3. `cd graphql && stepzen service start && stepzen login --config ~/.stepzen/stepzen-config.local.yaml`--this starts a local docker container running all of StepZen's services.
-4. `stepzen deploy` deploys the `graphql` schema in `index.graphql` to StepZen (on your local machine) and the endpoint is `http://localhost:9000/api/subscription/__graphql`
+4. `stepzen deploy` deploys the `graphql` schema in `index.graphql` to StepZen (on your local machine) and the endpoint is `http://localhost:9000/api/subscription/__graphql`.  However, the URL for web sockets is `ws://localhost:9000/stepzen-subscriptions/api/subscription/__graphql`.
 5. Now we will have a client that makes subscription requests over WebSockets using graphql-ws to this endpoint. For this, `cd ../client && npm install`.
 6. Setup .env; `echo 'APIKEY='$(stepzen whoami --apikey) > .env`  (`stepzen whoami --apikey` retrieves your admin key, it shoud look something like: `graphql::local.net...`)
 7. `node client.js` and see the magic. You will see the price of `ETHBTC` change and reflected back on your console.
@@ -23,7 +23,8 @@ That's it! `foo` can be a `@rest` query, it could be `@dbquery`, it could be a f
 ### Steps for the StepZen cloud service
 1. Download this repo and `cd subscription-blog/graphql`. 
 2. Make sure you've registered for an account and setup your cli.  [Getting Started](https://stepzen.com/getting-started) has instructions on how to do this.
-3. `cd graphql && stepzen deploy` deploys the `graphql` schema in `index.graphql` to StepZen (on your local machine) and the endpoint is `http://localhost:9000/api/subscription/__graphql`
+3. `cd graphql && stepzen deploy` deploys the `graphql` schema in `index.graphql` to StepZen (on your local machine) and the websockets endpoint is `wss://ACCOUNT.stepzen.net/stepzen-subscriptions/api/subscription/__graphql`.  Note: the client code below will use the correct wss endpoint if you set STEPZEN_ACCOUNT per step 6.
+http://localhost:9000/api/subscription/__graphql`
 5. Now we will have a client that makes subscription requests over WebSockets using graphql-ws to this endpoint. For this, `cd ../client && npm install`.
 6. Do a `stepzen whoami --apikey` to get your admin key. Edit `.env` and set:
    - the value of `APIKEY=` to be this key
